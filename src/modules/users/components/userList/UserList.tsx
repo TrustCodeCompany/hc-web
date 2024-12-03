@@ -1,33 +1,21 @@
 // src/modules/user/components/UserList.tsx
-import { useState, useEffect } from 'react';
-import { User } from '../../entities/User';
-import { ApiUserRepository } from '../../infrastructure/ApiUserRepository';
+import React from 'react';
+import { UserListItem } from '../userListItem/UserListItem';
+import { useUsers } from '../../hooks/useUsers';
 
 export const UserList: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const userRepository = new ApiUserRepository();
+  const { users, error } = useUsers();
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const usersData = await userRepository.getUsers();
-        setUsers(usersData);
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    };
-
-    fetchUsers();
-  }, []);
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   return (
     <div>
       <h1>User List</h1>
       <ul>
         {users.map((user) => (
-          <li key={user.id}>
-            {user.name} - {user.email}
-          </li>
+          <UserListItem key={user.id} user={user} />
         ))}
       </ul>
     </div>

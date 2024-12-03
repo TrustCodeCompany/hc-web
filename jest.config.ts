@@ -1,6 +1,12 @@
 // jest.config.ts
 export default {
   testEnvironment: 'jest-environment-jsdom', // Same name of the lib you installed
+
+  testMatch: [
+    '<rootDir>/**/__tests__/**/*.{js,jsx,ts,tsx}',
+    '<rootDir>/**/*.{spec,test}.{js,jsx,ts,tsx}',
+  ],
+
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'], // The file you created to extend jest config and "implement" the jest-dom environment in the jest globals
   moduleNameMapper: {
     '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/test/__mocks__/fileMock.js', // The global stub for weird files
@@ -10,6 +16,7 @@ export default {
   collectCoverageFrom: [
     // 'src/**/*.{ts,tsx}', // Incluye todos los archivos TypeScript y TSX de `src/`
     'src/components/**/*.{ts,tsx}', // Solo los componentes
+    'src/modules/**/components/**/*.{ts,tsx}', // Solo los componentes
     '!src/**/*.d.ts', // Excluye archivos de declaración de TypeScript
     '!src/index.tsx', // Excluye `index.tsx` (generalmente el punto de entrada principal)
     '!src/App.tsx', // Excluye `App.tsx`
