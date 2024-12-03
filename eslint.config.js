@@ -24,7 +24,7 @@ export default [
     },
     rules: {
       ...prettierConfig.rules, // Integrar reglas de Prettier
-      'prettier/prettier': 'error', // Marcar errores de formato como errores de ESLint
+      'prettier/prettier': 'warn', // Marcar errores de formato como warnings
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
       '@typescript-eslint/no-unused-vars': 'warn',
